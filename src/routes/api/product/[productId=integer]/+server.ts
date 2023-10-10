@@ -16,7 +16,7 @@ export const GET: RequestHandler = async ({ params, locals }) => {
 		throw error(404, `Product with ID ${productId} not found.`);
 	}
 
-	return new Response(JSON.stringify(product), { headers: { 'content-type': 'application/json' } });
+	return json(product);
 };
 
 export const PUT: RequestHandler = async ({ locals, params, request }) => {
@@ -83,7 +83,7 @@ export const PUT: RequestHandler = async ({ locals, params, request }) => {
 		});
 	}
 
-	return json(`The following changes were made: ${changes.join(', ')}.`);
+	return json(product);
 };
 
 export const DELETE: RequestHandler = async ({ locals, params }) => {
