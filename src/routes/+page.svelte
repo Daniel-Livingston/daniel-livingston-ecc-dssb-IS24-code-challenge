@@ -1,4 +1,5 @@
 <script lang="ts">
+	import 'carbon-components-svelte/css/white.css';
 	import type { PageData } from './$types';
 	import {
 		Button,
