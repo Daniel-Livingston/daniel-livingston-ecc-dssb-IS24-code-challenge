@@ -3,7 +3,9 @@
 declare global {
 	namespace App {
 		// interface Error {}
-		// interface Locals {}
+		interface Locals {
+			data: typeof import('$lib/data.json');
+		}
 		// interface PageData {}
 		// interface Platform {}
 	}
