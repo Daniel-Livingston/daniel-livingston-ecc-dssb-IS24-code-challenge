@@ -119,8 +119,15 @@
 	</svelte:fragment>
 	<Toolbar>
 		<ToolbarContent>
-			<Select id="select-search-filter" size="xl" inline on:change={onChangeSearchFilter}>
-				<SelectItem value="" text="All" />
+			<Select
+				id="select-search-filter"
+				size="xl"
+				selected={searchFilter}
+				labelText="Filter search by:"
+				inline
+				on:change={onChangeSearchFilter}
+			>
+				<SelectItem value="" text={'All'} />
 				<SelectItem value="scrum-masters" text="Scrum masters" />
 				<SelectItem value="developers" text="Developers" />
 			</Select>

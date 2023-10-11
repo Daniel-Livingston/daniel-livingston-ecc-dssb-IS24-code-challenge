@@ -16,6 +16,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 	const developers = data.developers as string[];
 	const startDate = data.startDate as string;
 	const methodology = data.methodology as string;
+	const location = data.location as string;
 
 	if (
 		!productName ||
@@ -51,7 +52,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 		scrumMasterName,
 		startDate,
 		methodology,
-		location: ''
+		location: location ? location : ''
 	};
 
 	products.push(newProduct);
