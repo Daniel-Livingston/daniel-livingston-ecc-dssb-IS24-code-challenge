@@ -16,7 +16,7 @@
 		productOwnerName = '',
 		startDate = '',
 		developers = ['', '', '', '', ''],
-		methodology = 'Agile';
+		methodology = '';
 
 	const onMethodologyChange = (e: Event) => {
 		methodology = (<HTMLSelectElement>e.target).value;
@@ -27,7 +27,8 @@
 		scrumMasterNameEmpty = false,
 		productOwnerNameEmpty = false,
 		startDateEmpty = false,
-		developersEmpty = false;
+		developersEmpty = false,
+		methodologyEmpty = false;
 
 	const onFormSubmit = async () => {
 		if (validateForm()) {
@@ -91,6 +92,13 @@
 			developersEmpty = false;
 		}
 
+		if (!methodology) {
+			methodologyEmpty = true;
+			formValid = false;
+		} else {
+			methodologyEmpty = false;
+		}
+
 		return formValid;
 	};
 </script>
@@ -98,7 +106,7 @@
 <Modal
 	bind:open
 	modalHeading="Add a product"
-	primaryButtonText="Add"
+	primaryButtonText="Save"
 	secondaryButtonText="Cancel"
 	on:click:button--primary={onFormSubmit}
 	on:click:button--secondary={() => (open = false)}
@@ -191,7 +199,13 @@
 			</DatePicker>
 		</FormGroup>
 
-		<Select labelText="Methodology" on:change={onMethodologyChange}>
+		<Select
+			labelText="Methodology"
+			invalidText="A methodology must be provided."
+			invalid={methodologyEmpty}
+			on:change={onMethodologyChange}
+		>
+			<SelectItem value="" text="Choose a methodology..." />
 			<SelectItem value="Agile" text="Agile" />
 			<SelectItem value="Waterfall" text="Waterfall" />
 		</Select>

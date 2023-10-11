@@ -51,7 +51,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 		scrumMasterName,
 		startDate,
 		methodology,
-		location: 'ECC'
+		location: ''
 	};
 
 	products.push(newProduct);

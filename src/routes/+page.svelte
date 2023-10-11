@@ -23,8 +23,8 @@
 
 	// Data variables.
 	const headers = [
-		{ key: 'id', value: 'ID' },
-		{ key: 'productName', value: 'Name' },
+		{ key: 'id', value: 'Product Number' },
+		{ key: 'productName', value: 'Product Name' },
 		{ key: 'scrumMasterName', value: 'Scrum Master' },
 		{ key: 'productOwnerName', value: 'Product Owner' },
 		{ key: 'developers', value: 'Developers' },
@@ -68,6 +68,16 @@
 	};
 
 	let currentlySelectedRow: any;
+
+	function isURL(string: string) {
+		try {
+			new URL(string);
+		} catch (_) {
+			return false;
+		}
+
+		return true;
+	}
 </script>
 
 <DataTable
@@ -100,6 +110,9 @@
 					}}
 				/>
 			</OverflowMenu>
+			<!-- Check if value is URL. -->
+		{:else if cell.key === 'location' && isURL(cell.value)}
+			<a href={cell.value}>{cell.value}</a>
 		{:else}
 			{cell.value}
 		{/if}
@@ -116,10 +129,6 @@
 				shouldFilterRows={searchFilter ? customShouldFilterRows : true}
 				bind:filteredRowIds
 			/>
-
-			<ToolbarMenu>
-				<ToolbarMenuItem>Scrum Master</ToolbarMenuItem>
-			</ToolbarMenu>
 			<Button on:click={() => (addProductModalOpen = true)}>Add a Product</Button>
 		</ToolbarContent>
 	</Toolbar>

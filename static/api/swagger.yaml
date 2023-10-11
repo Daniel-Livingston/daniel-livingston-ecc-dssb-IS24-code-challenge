@@ -8,6 +8,15 @@ tags:
   - name: product
     description: Everything about the products the ECC develops and maintains
 paths:
+  /health:
+    get:
+      summary: Determine the health of the API
+      operationId: getHealth
+      responses:
+        '200':
+          description: successful operation
+        '503':
+          description: Service not available
   /product:
     get:
       tags:
@@ -131,7 +140,7 @@ components:
     Product:
       type: object
       required:
-        - id
+        - productId
         - productName
         - productOwnerName
         - developers
@@ -140,7 +149,7 @@ components:
         - methodology
         - location
       properties:
-        id:
+        productId:
           type: integer
           format: int64
           example: 4

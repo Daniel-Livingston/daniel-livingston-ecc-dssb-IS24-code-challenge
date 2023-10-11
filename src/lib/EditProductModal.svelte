@@ -18,11 +18,19 @@
 			productOwnerName: '',
 			startDate: '',
 			developers: ['', '', '', '', ''],
-			methodology: 'Agile'
+			methodology: '',
+			location: ''
 		};
 
-	let { productName, scrumMasterName, productOwnerName, startDate, developers, methodology } =
-		productData;
+	let {
+		productName,
+		scrumMasterName,
+		productOwnerName,
+		startDate,
+		developers,
+		methodology,
+		location
+	} = productData;
 
 	const onMethodologyChange = (e: Event) => {
 		methodology = (<HTMLSelectElement>e.target).value;
@@ -33,7 +41,8 @@
 		scrumMasterNameEmpty = false,
 		productOwnerNameEmpty = false,
 		startDateEmpty = false,
-		developersEmpty = false;
+		developersEmpty = false,
+		methodologyEmpty = false;
 
 	const onFormSubmit = async () => {
 		if (validateForm()) {
@@ -48,13 +57,14 @@
 					productOwnerName,
 					startDate,
 					developers: developers.filter((developer) => developer),
+					location,
 					methodology
 				})
 			});
 
 			if (response.ok) {
 				open = false;
-				location.reload();
+				window.location.reload();
 			}
 		}
 	};
@@ -95,6 +105,13 @@
 			formValid = false;
 		} else {
 			developersEmpty = false;
+		}
+
+		if (!methodology) {
+			methodologyEmpty = true;
+			formValid = false;
+		} else {
+			methodologyEmpty = false;
 		}
 
 		return formValid;
@@ -143,7 +160,7 @@
 			/>
 		</FormGroup>
 
-		<FormGroup legendText="Developers">
+		<FormGroup legendText="Developers (min. 1)">
 			<div class="developers-wrapper">
 				<TextInput
 					labelText="Developer 1"
@@ -197,10 +214,26 @@
 			</DatePicker>
 		</FormGroup>
 
-		<Select labelText="Methodology" on:change={onMethodologyChange}>
-			<SelectItem value="Agile" text="Agile" />
-			<SelectItem value="Waterfall" text="Waterfall" />
-		</Select>
+		<FormGroup>
+			<Select
+				labelText="Methodology"
+				invalidText="A methodology must be provided."
+				invalid={methodologyEmpty}
+				selected={methodology}
+				on:change={onMethodologyChange}
+			>
+				<SelectItem value="" text="Select a methodology..." />
+				<SelectItem value="Agile" text="Agile" />
+				<SelectItem value="Waterfall" text="Waterfall" />
+			</Select>
+		</FormGroup>
+
+		<TextInput
+			labelText="Location"
+			helperText="Should be a URL to a GitHub repository."
+			placeholder="Enter the location..."
+			bind:value={location}
+		/>
 	</Form>
 </Modal>
 

@@ -41,6 +41,7 @@ export const PUT: RequestHandler = async ({ locals, params, request }) => {
 	const developers = data.developers as string[];
 	const startDate = data.startDate as string;
 	const methodology = data.methodology as string;
+	const location = data.location as string;
 	const changes: string[] = [];
 
 	if (productName && product.productName !== productName) {
@@ -74,6 +75,11 @@ export const PUT: RequestHandler = async ({ locals, params, request }) => {
 	if (methodology && product.methodology !== methodology) {
 		product.methodology = methodology;
 		changes.push('methodology');
+	}
+
+	if (product.location !== location) {
+		product.location = location;
+		changes.push('location');
 	}
 
 	if (changes.length === 0) {
